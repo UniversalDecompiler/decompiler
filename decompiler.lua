@@ -1,6 +1,29 @@
 local Luxt1 = {}
 
+local correctCode = "TEST"
+local attempts = 3
+
+local function verifyCode()
+    local inputCode = game:GetService("TextService"):Prompt("Enter Access Code", "Enter the code to access the UI", 50)
+    if inputCode == correctCode then
+        return true
+    else
+        attempts = attempts - 1
+        if attempts > 0 then
+            warn("Incorrect code! "..attempts.." attempts remaining.")
+            return verifyCode()
+        else
+            warn("No attempts remaining. Closing...")
+            return false
+        end
+    end
+end
+
 function Luxt1.CreateWindow(libName, logoId)
+    if not verifyCode() then
+        return
+    end
+
     local LuxtLib = Instance.new("ScreenGui")
     local shadow = Instance.new("ImageLabel")
     local MainFrame = Instance.new("Frame")
@@ -105,10 +128,8 @@ function Luxt1.CreateWindow(libName, logoId)
     pageFolder.Name = "pageFolder"
     pageFolder.Parent = framesAll
 
-    --
     libName = libName or "LuxtLib"
     logoId = logoId or ""
-    --
 
     LuxtLib.Name = "LuxtLib"..libName
     LuxtLib.Parent = game.CoreGui
@@ -239,7 +260,6 @@ function Luxt1.CreateWindow(libName, logoId)
         local tabBtn = Instance.new("TextButton")
         local tabLogo = Instance.new("ImageLabel")
 
-        --
         tabText = tabText or "Tab"
         tabId = tabId or ""
 
@@ -273,7 +293,6 @@ function Luxt1.CreateWindow(libName, logoId)
         tabLogo.ZIndex = 2
         tabLogo.Image = "rbxassetid://"..tabId
         tabLogo.ImageColor3 = Color3.fromRGB(153, 255, 238)
-        --
 
         local newPage = Instance.new("ScrollingFrame")
         local sectionList = Instance.new("UIListLayout")
@@ -294,10 +313,8 @@ function Luxt1.CreateWindow(libName, logoId)
         sectionList.SortOrder = Enum.SortOrder.LayoutOrder
         sectionList.Padding = UDim.new(0, 3)
 
-        
         local function UpdateSize()
             local cS = sectionList.AbsoluteContentSize
-
             game.TweenService:Create(newPage, TweenInfo.new(0.15, Enum.EasingStyle.Linear, Enum.EasingDirection.In), {
                 CanvasSize = UDim2.new(0,cS.X,0,cS.Y)
             }):Play()
@@ -353,10 +370,9 @@ function Luxt1.CreateWindow(libName, logoId)
             sectionInnerList.HorizontalAlignment = Enum.HorizontalAlignment.Center
             sectionInnerList.SortOrder = Enum.SortOrder.LayoutOrder
             sectionInnerList.Padding = UDim.new(0, 3)
-            --
+
             sectionText = sectionText or "Section"
             local isDropped = false
-            --
 
             sectionFrame.Name = "sectionFrame"
             sectionFrame.Parent = newPage
@@ -427,10 +443,8 @@ function Luxt1.CreateWindow(libName, logoId)
                 local UICorner = Instance.new("UICorner")
                 local UIListLayout = Instance.new("UIListLayout")
 
-                --
                 btnText = btnText or "TextButton"
                 callback = callback or function() end
-                --
 
                 ButtonFrame.Name = "ButtonFrame"
                 ButtonFrame.Parent = sectionFrame
@@ -503,193 +517,193 @@ function Luxt1.CreateWindow(libName, logoId)
                 end)
             end
 
-                function ItemHandling:Toggle(toggInfo, callback)
-                    local ToggleFrame = Instance.new("Frame")
-                    local toggleFrame = Instance.new("Frame")
-                    local UICorner = Instance.new("UICorner")
-                    local checkBtn = Instance.new("ImageButton")
-                    local toggleInfo = Instance.new("TextLabel")
-                    local togInList = Instance.new("UIListLayout")
-                    local toginPad = Instance.new("UIPadding")
-                    local UIListLayout = Instance.new("UIListLayout")
-                    local a 
-                    --
-                    toggInfo = toggInfo or "Toggle"
-                    callback = callback or function() end
+            function ItemHandling:Toggle(toggInfo, callback)
+                local ToggleFrame = Instance.new("Frame")
+                local toggleFrame = Instance.new("Frame")
+                local UICorner = Instance.new("UICorner")
+                local checkBtn = Instance.new("ImageButton")
+                local toggleInfo = Instance.new("TextLabel")
+                local togInList = Instance.new("UIListLayout")
+                local toginPad = Instance.new("UIPadding")
+                local UIListLayout = Instance.new("UIListLayout")
+                local a 
+                
+                toggInfo = toggInfo or "Toggle"
+                callback = callback or function() end
 
-                    ToggleFrame.Name = "ToggleFrame"
-                    ToggleFrame.Parent = sectionFrame
-                    ToggleFrame.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
-                    ToggleFrame.BackgroundTransparency = 1.000
-                    ToggleFrame.Size = UDim2.new(0, 365, 0, 36)
+                ToggleFrame.Name = "ToggleFrame"
+                ToggleFrame.Parent = sectionFrame
+                ToggleFrame.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
+                ToggleFrame.BackgroundTransparency = 1.000
+                ToggleFrame.Size = UDim2.new(0, 365, 0, 36)
 
-                    toggleFrame.Name = "toggleFrame"
-                    toggleFrame.Parent = ToggleFrame
-                    toggleFrame.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
-                    toggleFrame.Size = UDim2.new(0, 365, 0, 36)
-                    toggleFrame.ZIndex = 2
+                toggleFrame.Name = "toggleFrame"
+                toggleFrame.Parent = ToggleFrame
+                toggleFrame.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
+                toggleFrame.Size = UDim2.new(0, 365, 0, 36)
+                toggleFrame.ZIndex = 2
 
-                    UICorner.CornerRadius = UDim.new(0, 3)
-                    UICorner.Parent = toggleFrame
+                UICorner.CornerRadius = UDim.new(0, 3)
+                UICorner.Parent = toggleFrame
 
-                    checkBtn.Name = "checkBtn"
-                    checkBtn.Parent = toggleFrame
-                    checkBtn.BackgroundTransparency = 1.000
-                    checkBtn.Position = UDim2.new(0.0191780813, 0, 0.138888896, 0)
-                    checkBtn.Size = UDim2.new(0, 25, 0, 25)
-                    checkBtn.ZIndex = 2
-                    checkBtn.Image = "rbxassetid://3926311105"
-                    checkBtn.ImageColor3 = Color3.fromRGB(97, 97, 97)
-                    checkBtn.ImageRectOffset = Vector2.new(940, 784)
-                    checkBtn.ImageRectSize = Vector2.new(48, 48)
+                checkBtn.Name = "checkBtn"
+                checkBtn.Parent = toggleFrame
+                checkBtn.BackgroundTransparency = 1.000
+                checkBtn.Position = UDim2.new(0.0191780813, 0, 0.138888896, 0)
+                checkBtn.Size = UDim2.new(0, 25, 0, 25)
+                checkBtn.ZIndex = 2
+                checkBtn.Image = "rbxassetid://3926311105"
+                checkBtn.ImageColor3 = Color3.fromRGB(97, 97, 97)
+                checkBtn.ImageRectOffset = Vector2.new(940, 784)
+                checkBtn.ImageRectSize = Vector2.new(48, 48)
 
-                    toggleInfo.Name = "toggleInfo"
-                    toggleInfo.Parent = toggleFrame
-                    toggleInfo.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                    toggleInfo.BackgroundTransparency = 1.000
-                    toggleInfo.Position = UDim2.new(0.104109593, 0, 0, 0)
-                    toggleInfo.Size = UDim2.new(0.254794508, 162, 1, 0)
-                    toggleInfo.ZIndex = 2
-                    toggleInfo.Font = Enum.Font.GothamSemibold
-                    toggleInfo.Text = toggInfo
-                    toggleInfo.TextColor3 = Color3.fromRGB(97, 97, 97)
-                    toggleInfo.TextSize = 14.000
-                    toggleInfo.TextXAlignment = Enum.TextXAlignment.Left
+                toggleInfo.Name = "toggleInfo"
+                toggleInfo.Parent = toggleFrame
+                toggleInfo.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                toggleInfo.BackgroundTransparency = 1.000
+                toggleInfo.Position = UDim2.new(0.104109593, 0, 0, 0)
+                toggleInfo.Size = UDim2.new(0.254794508, 162, 1, 0)
+                toggleInfo.ZIndex = 2
+                toggleInfo.Font = Enum.Font.GothamSemibold
+                toggleInfo.Text = toggInfo
+                toggleInfo.TextColor3 = Color3.fromRGB(97, 97, 97)
+                toggleInfo.TextSize = 14.000
+                toggleInfo.TextXAlignment = Enum.TextXAlignment.Left
 
-                    togInList.Name = "togInList"
-                    togInList.Parent = toggleFrame
-                    togInList.FillDirection = Enum.FillDirection.Horizontal
-                    togInList.SortOrder = Enum.SortOrder.LayoutOrder
-                    togInList.VerticalAlignment = Enum.VerticalAlignment.Center
-                    togInList.Padding = UDim.new(0, 5)
+                togInList.Name = "togInList"
+                togInList.Parent = toggleFrame
+                togInList.FillDirection = Enum.FillDirection.Horizontal
+                togInList.SortOrder = Enum.SortOrder.LayoutOrder
+                togInList.VerticalAlignment = Enum.VerticalAlignment.Center
+                togInList.Padding = UDim.new(0, 5)
 
-                    toginPad.Name = "toginPad"
-                    toginPad.Parent = toggleFrame
-                    toginPad.PaddingLeft = UDim.new(0, 7)
+                toginPad.Name = "toginPad"
+                toginPad.Parent = toggleFrame
+                toginPad.PaddingLeft = UDim.new(0, 7)
 
-                    UIListLayout.Parent = ToggleFrame
-                    UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
-                    UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-                    UIListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+                UIListLayout.Parent = ToggleFrame
+                UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+                UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+                UIListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
 
-                    local on = false
-                    local togDe = false
-                    checkBtn.MouseButton1Click:Connect(function()
-                        if not togDe then
-                                togDe = true
-                                on = not on
-                                 callback(on) 
-                                if on then
-                                    checkBtn.Parent.toggleInfo.TextColor3 = Color3.fromRGB(153, 255, 238)
-                                    checkBtn.ImageColor3 = Color3.fromRGB(153, 255, 238)
-                                    checkBtn.ImageRectOffset = Vector2.new(4, 836)
-                                    checkBtn.ImageRectSize = Vector2.new(48,48)
-                                else
-                                    checkBtn.Parent.toggleInfo.TextColor3 = Color3.fromRGB(97, 97, 97)
-                                    checkBtn.ImageColor3 = Color3.fromRGB(97, 97, 97)
-                                    checkBtn.ImageRectOffset = Vector2.new(940, 784)
-                                    checkBtn.ImageRectSize = Vector2.new(48,48)
-                                end
-                                wait(1)
-                                togDe = false
+                local on = false
+                local togDe = false
+                checkBtn.MouseButton1Click:Connect(function()
+                    if not togDe then
+                            togDe = true
+                            on = not on
+                             callback(on) 
+                            if on then
+                                checkBtn.Parent.toggleInfo.TextColor3 = Color3.fromRGB(153, 255, 238)
+                                checkBtn.ImageColor3 = Color3.fromRGB(153, 255, 238)
+                                checkBtn.ImageRectOffset = Vector2.new(4, 836)
+                                checkBtn.ImageRectSize = Vector2.new(48,48)
+                            else
+                                checkBtn.Parent.toggleInfo.TextColor3 = Color3.fromRGB(97, 97, 97)
+                                checkBtn.ImageColor3 = Color3.fromRGB(97, 97, 97)
+                                checkBtn.ImageRectOffset = Vector2.new(940, 784)
+                                checkBtn.ImageRectSize = Vector2.new(48,48)
                             end
-                    end)
+                            wait(1)
+                            togDe = false
+                        end
+                end)
 
-                    checkBtn.MouseButton1Up:Connect(function()
-                        checkBtn.Parent:TweenSize(UDim2.new(0, 365,0, 36), "InOut", "Quint", 0.18, true)
-                    end)
+                checkBtn.MouseButton1Up:Connect(function()
+                    checkBtn.Parent:TweenSize(UDim2.new(0, 365,0, 36), "InOut", "Quint", 0.18, true)
+                end)
 
-                    checkBtn.MouseButton1Down:Connect(function()
-                        checkBtn.Parent:TweenSize(UDim2.new(0, 359,0, 30), "InOut", "Quint", 0.18, true)
-                    end)
-                end
+                checkBtn.MouseButton1Down:Connect(function()
+                    checkBtn.Parent:TweenSize(UDim2.new(0, 359,0, 30), "InOut", "Quint", 0.18, true)
+                end)
+            end
 
-                    function ItemHandling:KeyBind(keyInfo, first, callback)
-                        --
-                        keyInfo = keyInfo or "KeyBind"
-                        local oldKey = first.Name
-                        callback = callback or function() end
+            function ItemHandling:KeyBind(keyInfo, first, callback)
+                keyInfo = keyInfo or "KeyBind"
+                local oldKey = first.Name
+                callback = callback or function() end
 
-                        local KeyBindFrame = Instance.new("Frame")
-                        local keybindFrame = Instance.new("Frame")
-                        local UICorner = Instance.new("UICorner")
-                        local key = Instance.new("TextButton")
-                        local UICorner_2 = Instance.new("UICorner")
-                        local keybindInfo = Instance.new("TextLabel")
-                        local toginPad = Instance.new("UIPadding")
-                        local togInList = Instance.new("UIListLayout")
-                        local UIListLayout = Instance.new("UIListLayout")
+                local KeyBindFrame = Instance.new("Frame")
+                local keybindFrame = Instance.new("Frame")
+                local UICorner = Instance.new("UICorner")
+                local key = Instance.new("TextButton")
+                local UICorner_2 = Instance.new("UICorner")
+                local keybindInfo = Instance.new("TextLabel")
+                local toginPad = Instance.new("UIPadding")
+                local togInList = Instance.new("UIListLayout")
+                local UIListLayout = Instance.new("UIListLayout")
 
-                        KeyBindFrame.Name = "KeyBindFrame"
-                        KeyBindFrame.Parent = sectionFrame
-                        KeyBindFrame.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
-                        KeyBindFrame.BackgroundTransparency = 1.000
-                        KeyBindFrame.Size = UDim2.new(0, 365, 0, 36)
+                KeyBindFrame.Name = "KeyBindFrame"
+                KeyBindFrame.Parent = sectionFrame
+                KeyBindFrame.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
+                KeyBindFrame.BackgroundTransparency = 1.000
+                KeyBindFrame.Size = UDim2.new(0, 365, 0, 36)
 
-                        keybindFrame.Name = "keybindFrame"
-                        keybindFrame.Parent = KeyBindFrame
-                        keybindFrame.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
-                        keybindFrame.Size = UDim2.new(0, 365, 0, 36)
-                        keybindFrame.ZIndex = 2
+                keybindFrame.Name = "keybindFrame"
+                keybindFrame.Parent = KeyBindFrame
+                keybindFrame.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
+                keybindFrame.Size = UDim2.new(0, 365, 0, 36)
+                keybindFrame.ZIndex = 2
 
-                        UICorner.CornerRadius = UDim.new(0, 3)
-                        UICorner.Parent = keybindFrame
+                UICorner.CornerRadius = UDim.new(0, 3)
+                UICorner.Parent = keybindFrame
 
-                        key.Name = "key"
-                        key.Parent = keybindFrame
-                        key.BackgroundColor3 = Color3.fromRGB(24, 24, 24)
-                        key.Position = UDim2.new(0.0250000004, 0, 0.194111288, 0)
-                        key.Size = UDim2.new(0, 100, 0, 22)
-                        key.ZIndex = 2
-                        key.Font = Enum.Font.GothamSemibold
-                        key.Text = oldKey
-                        key.TextColor3 = Color3.fromRGB(153, 255, 238)
-                        key.TextSize = 14.000
+                key.Name = "key"
+                key.Parent = keybindFrame
+                key.BackgroundColor3 = Color3.fromRGB(24, 24, 24)
+                key.Position = UDim2.new(0.0250000004, 0, 0.194111288, 0)
+                key.Size = UDim2.new(0, 100, 0, 22)
+                key.ZIndex = 2
+                key.Font = Enum.Font.GothamSemibold
+                key.Text = oldKey
+                key.TextColor3 = Color3.fromRGB(153, 255, 238)
+                key.TextSize = 14.000
 
-                        UICorner_2.CornerRadius = UDim.new(0, 5)
-                        UICorner_2.Parent = key
+                UICorner_2.CornerRadius = UDim.new(0, 5)
+                UICorner_2.Parent = key
 
-                        keybindInfo.Name = "keybindInfo"
-                        keybindInfo.Parent = keybindFrame
-                        keybindInfo.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                        keybindInfo.BackgroundTransparency = 1.000
-                        keybindInfo.Position = UDim2.new(0.320547938, 0, 0.166666672, 0)
-                        keybindInfo.Size = UDim2.new(0, 239, 0, 22)
-                        keybindInfo.ZIndex = 2
-                        keybindInfo.Font = Enum.Font.GothamSemibold
-                        keybindInfo.Text = keyInfo
-                        keybindInfo.TextColor3 = Color3.fromRGB(255, 255, 255)
-                        keybindInfo.TextSize = 13.000
-                        keybindInfo.TextXAlignment = Enum.TextXAlignment.Left
+                keybindInfo.Name = "keybindInfo"
+                keybindInfo.Parent = keybindFrame
+                keybindInfo.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                keybindInfo.BackgroundTransparency = 1.000
+                keybindInfo.Position = UDim2.new(0.320547938, 0, 0.166666672, 0)
+                keybindInfo.Size = UDim2.new(0, 239, 0, 22)
+                keybindInfo.ZIndex = 2
+                keybindInfo.Font = Enum.Font.GothamSemibold
+                keybindInfo.Text = keyInfo
+                keybindInfo.TextColor3 = Color3.fromRGB(255, 255, 255)
+                keybindInfo.TextSize = 13.000
+                keybindInfo.TextXAlignment = Enum.TextXAlignment.Left
 
-                        toginPad.Name = "toginPad"
-                        toginPad.Parent = keybindFrame
-                        toginPad.PaddingLeft = UDim.new(0, 7)
+                toginPad.Name = "toginPad"
+                toginPad.Parent = keybindFrame
+                toginPad.PaddingLeft = UDim.new(0, 7)
 
-                        togInList.Name = "togInList"
-                        togInList.Parent = keybindFrame
-                        togInList.FillDirection = Enum.FillDirection.Horizontal
-                        togInList.SortOrder = Enum.SortOrder.LayoutOrder
-                        togInList.VerticalAlignment = Enum.VerticalAlignment.Center
-                        togInList.Padding = UDim.new(0, 8)
+                togInList.Name = "togInList"
+                togInList.Parent = keybindFrame
+                togInList.FillDirection = Enum.FillDirection.Horizontal
+                togInList.SortOrder = Enum.SortOrder.LayoutOrder
+                togInList.VerticalAlignment = Enum.VerticalAlignment.Center
+                togInList.Padding = UDim.new(0, 8)
 
-                        UIListLayout.Parent = KeyBindFrame
-                        UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
-                        UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-                        UIListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+                UIListLayout.Parent = KeyBindFrame
+                UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+                UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+                UIListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
 
-                        key.MouseButton1Click:connect(function(e) 
-                            keybindFrame:TweenSize(UDim2.new(0, 359,0, 30), "InOut", "Quint", 0.18, true)
-                            key.Text = ". . ."
-                            local a, b = game:GetService('UserInputService').InputBegan:wait();
-                            if a.KeyCode.Name ~= "Unknown" then
-                                keybindFrame:TweenSize(UDim2.new(0, 365,0, 36), "InOut", "Quint", 0.18, true)
-                                key.Text = a.KeyCode.Name
-                                oldKey = a.KeyCode.Name;
-                            end
-                        end)
-                        local keyDebounce = false
-                        game:GetService("UserInputService").InputBegan:connect(function(current, ok) 
+                key.MouseButton1Click:connect(function(e) 
+                    keybindFrame:TweenSize(UDim2.new(0, 359,0, 30), "InOut", "Quint", 0.18, true)
+                    key.Text = ". . ."
+                    local a, b = game:GetService('UserInputService').InputBegan:wait();
+                    if a.KeyCode.Name ~= "Unknown" then
+                        keybindFrame:TweenSize(UDim2.new(0, 365,0, 36), "InOut", "Quint", 0.18, true)
+                        key.Text = a.KeyCode.Name
+                        oldKey = a.KeyCode.Name;
+                    end
+                end)
+                local keyDebounce = false
+                game:GetService("UserInputService").InputBegan:connect(function(current, ok) 
+                    if not
                             if not ok then 
                                 if current.KeyCode.Name == oldKey then 
                                     if not keyDebounce then
